@@ -2,25 +2,33 @@ const express = require('express');
 const router = express.Router();
 const Book = require('../models/Book');
 
-// מסלול להוספת ספר
-router.post('/add', async (req, res) => {
-  const { title, author, genre } = req.body;
+// עדכון לייקים לספר
+router.post('/like/:googleBookId', async (req, res) => {
   try {
-    const newBook = new Book({ title, author, genre });
-    await newBook.save();
-    res.status(201).json(newBook);
+    const { googleBookId } = req.params;
+    const book = await Book.findOneAndUpdate(
+      { googleBookId },
+      { $inc: { likes: 1 } }, // העלאת ספירת הלייקים ב-1
+      { new: true, upsert: true } // יצירת הספר אם הוא לא קיים
+    );
+    res.json(book);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to add book' });
+    res.status(500).json({ error: 'Failed to like the book' });
   }
 });
 
-// מסלול לקבלת כל הספרים
-router.get('/', async (req, res) => {
+// עדכון דיסלייקים לספר
+router.post('/dislike/:googleBookId', async (req, res) => {
   try {
-    const books = await Book.find();
-    res.json(books);
+    const { googleBookId } = req.params;
+    const book = await Book.findOneAndUpdate(
+      { googleBookId },
+      { $inc: { dislikes: 1 } }, // העלאת ספירת הדיסלייקים ב-1
+      { new: true, upsert: true }
+    );
+    res.json(book);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch books' });
+    res.status(500).json({ error: 'Failed to dislike the book' });
   }
 });
 
