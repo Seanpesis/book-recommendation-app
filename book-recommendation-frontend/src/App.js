@@ -3,7 +3,17 @@ import axios from 'axios';
 import './App.css';
 
 function App() {
-  const [genres, setGenres] = useState(['Fantasy', 'Science Fiction', 'Mystery', 'Romance']);
+  const [genres, setGenres] = useState([
+    'Fantasy', 
+    'Science Fiction', 
+    'Mystery', 
+    'Romance', 
+    'Thriller', 
+    'Horror', 
+    'Biography', 
+    'History', 
+    'Poetry'
+  ]);
   const [selectedGenre, setSelectedGenre] = useState('');
   const [books, setBooks] = useState([]);
 
