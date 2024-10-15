@@ -1,26 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 
 function App() {
-  const [genres, setGenres] = useState([
-    'Fantasy', 
-    'Science Fiction', 
-    'Mystery', 
-    'Romance', 
-    'Thriller', 
-    'Horror', 
-    'Biography', 
-    'History', 
-    'Poetry'
-  ]);
+  const [genres, setGenres] = useState(['Fantasy', 'Science Fiction', 'Mystery', 'Romance']);
   const [selectedGenre, setSelectedGenre] = useState('');
   const [books, setBooks] = useState([]);
 
-  // פונקציית חיפוש ספרים
+  // פונקציה שמבצעת את החיפוש לפי ז'אנר
   const handleSearch = () => {
     if (selectedGenre) {
-      axios.get(`https://www.googleapis.com/books/v1/volumes?q=subject:${selectedGenre}&maxResults=40&key=AIzaSyAwCjY5irRkJ9oTUZOJDTlOIhQoC8LZ0Oo`)
+      axios.get(`https://www.googleapis.com/books/v1/volumes?q=subject:${selectedGenre}&maxResults=40&key=YOUR_GOOGLE_BOOKS_API_KEY`)
         .then(response => {
           setBooks(response.data.items || []);
         })
@@ -30,14 +20,14 @@ function App() {
     }
   };
 
-  // פונקציה לעדכון לייקים בשרת
+  // פונקציה שמטפלת בלייקים ומעדכנת את השרת
   const handleLike = (googleBookId) => {
     axios.post(`/books/like/${googleBookId}`)
       .then(response => {
         setBooks((prevBooks) =>
           prevBooks.map((book) =>
             book.id === googleBookId
-              ? { ...book, likes: response.data.likes } // עדכון כמות הלייקים מהשרת
+              ? { ...book, likes: response.data.likes } // עדכון כמות הלייקים
               : book
           )
         );
@@ -47,14 +37,14 @@ function App() {
       });
   };
 
-  // פונקציה לעדכון דיסלייקים בשרת
+  // פונקציה שמטפלת בדיסלייקים ומעדכנת את השרת
   const handleDislike = (googleBookId) => {
     axios.post(`/books/dislike/${googleBookId}`)
       .then(response => {
         setBooks((prevBooks) =>
           prevBooks.map((book) =>
             book.id === googleBookId
-              ? { ...book, dislikes: response.data.dislikes } // עדכון כמות הדיסלייקים מהשרת
+              ? { ...book, dislikes: response.data.dislikes } // עדכון כמות הדיסלייקים
               : book
           )
         );

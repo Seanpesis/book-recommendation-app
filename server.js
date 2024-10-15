@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config();
+require('dotenv').config(); // טוען את משתני הסביבה מהקובץ .env
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -20,7 +20,7 @@ mongoose.connect(mongoURI, {
   .then(() => console.log('MongoDB connected...'))
   .catch(err => console.error('Error connecting to MongoDB:', err));
 
-// Book Schema (מודל ספרים)
+// מודל לספרים (Books)
 const bookSchema = new mongoose.Schema({
   googleBookId: { type: String, required: true, unique: true },
   title: { type: String },
