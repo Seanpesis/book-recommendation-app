@@ -1,13 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 
 function App() {
-  const [genres, setGenres] = useState(['Fantasy', 'Science Fiction', 'Mystery', 'Romance']);
+  const [genres, setGenres] = useState([
+    'Fantasy', 
+    'Science Fiction', 
+    'Mystery', 
+    'Romance', 
+    'Thriller', 
+    'Horror', 
+    'Biography', 
+    'History', 
+    'Poetry'
+  ]);
   const [selectedGenre, setSelectedGenre] = useState('');
   const [books, setBooks] = useState([]);
 
-  // פונקציה שמבצעת את החיפוש לפי ז'אנר
+  // פונקציית חיפוש ספרים
   const handleSearch = () => {
     if (selectedGenre) {
       axios.get(`https://www.googleapis.com/books/v1/volumes?q=subject:${selectedGenre}&maxResults=40&key=YOUR_GOOGLE_BOOKS_API_KEY`)
@@ -20,14 +30,14 @@ function App() {
     }
   };
 
-  // פונקציה שמטפלת בלייקים ומעדכנת את השרת
+  // פונקציה לעדכון לייקים בשרת
   const handleLike = (googleBookId) => {
     axios.post(`/books/like/${googleBookId}`)
       .then(response => {
         setBooks((prevBooks) =>
           prevBooks.map((book) =>
             book.id === googleBookId
-              ? { ...book, likes: response.data.likes } // עדכון כמות הלייקים
+              ? { ...book, likes: response.data.likes } // עדכון כמות הלייקים מהשרת
               : book
           )
         );
@@ -37,14 +47,14 @@ function App() {
       });
   };
 
-  // פונקציה שמטפלת בדיסלייקים ומעדכנת את השרת
+  // פונקציה לעדכון דיסלייקים בשרת
   const handleDislike = (googleBookId) => {
     axios.post(`/books/dislike/${googleBookId}`)
       .then(response => {
         setBooks((prevBooks) =>
           prevBooks.map((book) =>
             book.id === googleBookId
-              ? { ...book, dislikes: response.data.dislikes } // עדכון כמות הדיסלייקים
+              ? { ...book, dislikes: response.data.dislikes } // עדכון כמות הדיסלייקים מהשרת
               : book
           )
         );

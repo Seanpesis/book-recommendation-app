@@ -104,13 +104,13 @@ button:hover {
   gap: 10px;
   align-items: center; /* יישור לכיוון מרכזי אנכי */
   justify-content: flex-start; /* יישור לכיוון שמאל */
-  gap: 15px;
+  gap: 15px; /* רווח בין הכפתורים והספירה */
 }
 
 .like-dislike-container button {
   padding: 5px 10px;
   font-size: 0.9rem;
-  background-color: #007bff;
+  background-color: #f0f0f0;
   border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
@@ -118,7 +118,7 @@ button:hover {
 }
 
 .like-dislike-container button:hover {
-  background-color: #0056b3;
+  background-color: #e0e0e0;
 }
 
 .like-dislike-container span {
