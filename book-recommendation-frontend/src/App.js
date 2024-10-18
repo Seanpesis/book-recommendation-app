@@ -142,7 +142,7 @@ function App() {
           dataLength={books.length}
           next={() => {}}
           hasMore={true}
-          loader={<h4>Loading more books...</h4>}
+          loader={<h4></h4>}
         >
           <div className="books-container">
             {books.length > 0 && <h2>Books in {selectedGenre}</h2>}
