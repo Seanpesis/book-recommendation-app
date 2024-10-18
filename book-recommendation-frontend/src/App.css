@@ -1,45 +1,308 @@
-/* General styles */
+/* כללי */
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f0f2f5;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f4f4;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
+/* עיצוב ראש הדף */
 header {
-  background-color: #007bff;
+  background: linear-gradient(to right, #1f3c88, #69b7eb);
   color: #fff;
   padding: 20px;
   text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   margin: 0;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Search section */
+/* חיפוש */
 .search-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 40px 0;
+  margin: 30px;
+  padding: 10px;
+  background-color: #e0f7fa;
+  border-radius: 50px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 10px; /* מרווח בין תיבת החיפוש לכפתור */
 }
 
-select {
+.react-autosuggest__container {
+  width: 100%;
+}
+
+.react-autosuggest__input {
+  flex: 1; /* תיבת החיפוש תתפוס את כל הרוחב הזמין */
   padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
   font-size: 1rem;
-  border-radius: 5px;
-  margin-right: 10px;
-  border: 2px solid #007bff;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.react-autosuggest__suggestions-container {
+  position: absolute;
+  z-index: 1000;
+  background: #fff;
   width: 250px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.react-autosuggest__suggestion {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.react-autosuggest__suggestion--highlighted {
+  background-color: #e0f7fa;
 }
 
 button {
   padding: 10px 20px;
   font-size: 1rem;
-  background-color: #007bff;
+  color: white;
+  background-color: #1f3c88;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-left: 10px;
+}
+
+button:hover {
+  background-color: #162a56;
+  transform: translateY(-2px);
+}
+
+/* תצוגת ספרים */
+.books-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+  text-decoration: underline;
+  margin-bottom: 30px;
+}
+
+.book-list {
+  list-style-type: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.book-item {
+  position: relative;
+  margin-bottom: 30px;
+  display: inline-block;
+  width: 200px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.book-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.book-item img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.book-details {
+  margin-top: 10px;
+}
+
+.book-details h3 {
+  font-size: 1.1rem;
+  color: #1f3c88;
+}
+
+.book-details p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* דירוג כוכבים */
+.rating {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.rating svg {
+  cursor: pointer;
+  transition: transform 0.2s;
+  color: #ffc107;
+}
+
+.rating svg:hover {
+  transform: scale(1.2);
+}
+
+/* ביקורות */
+.reviews-section {
+  margin-top: 20px;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.reviews-section h4 {
+  font-size: 1.2rem;
+  color: #1f3c88;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.reviews-section textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 0.9rem;
+  border: 2px solid #1f3c88;
+  border-radius: 5px;
+  resize: none;
+  margin-top: 10px;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.reviews-section p {
+  background-color: #e8f5e9;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 0;
+  font-size: 0.9rem;
+}
+
+/* כפתורי שיתוף */
+.social-btn {
+  border: none;
+  background: none;
+  color: #1f3c88;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s, transform 0.3s;
+  margin-right: 5px;
+}
+
+.share-buttons button {
+  background-color: #1f3c88;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+.share-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.social-btn:hover {
+  color: #69b7eb;
+  transform: scale(1.1);
+}
+
+.review-popup {
+  position: absolute;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  max-width: 200px;
+}
+
+/* מצב אור וכהה */
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.App.dark-mode .book-item {
+  background-color: #333;
+  color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.App.dark-mode .search-container select,
+.App.dark-mode button {
+  background-color: #69b7eb;
+  color: #fff;
+}
+
+.App.dark-mode h1, 
+.App.dark-mode h2 {
+  color: #69b7eb;
+}
+.review-popup {
+  position: absolute;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  max-width: 200px;
+  text-align: left;
+  top: -110%; /* מיקום מעל הספר */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #333;
+}
+.review-popup textarea {
+  width: 100%;
+  padding: 5px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
+.review-popup button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #1f3c88;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -47,84 +310,6 @@ button {
   transition: background-color 0.3s;
 }
 
-button:hover {
-  background-color: #0056b3;
-}
-
-/* Books display */
-.books-container {
-  display: flex;
-  flex-direction: column;
-  gap: 30px; /* יותר ריווח בין הספרים */
-  padding: 20px 0;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.book-item {
-  display: flex;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  align-items: center;
-  border: 1px solid #ddd; /* גבול עדין בין הספרים */
-  transition: box-shadow 0.3s ease;
-}
-
-.book-item:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* הדגשה נוספת במעבר עכבר */
-}
-
-.book-item img {
-  width: 120px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 5px;
-  margin-right: 20px;
-}
-
-.book-details {
-  flex: 1;
-}
-
-.book-details h3 {
-  font-size: 1.5rem;
-  color: #333;
-}
-
-.book-details p {
-  font-size: 0.9rem;
-  color: #555;
-  margin: 10px 0;
-}
-
-.like-dislike-container {
-  display: flex;
-  gap: 10px;
-  align-items: center; /* יישור לכיוון מרכזי אנכי */
-  justify-content: flex-start; /* יישור לכיוון שמאל */
-  gap: 15px; /* רווח בין הכפתורים והספירה */
-}
-
-.like-dislike-container button {
-  padding: 5px 10px;
-  font-size: 0.9rem;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.like-dislike-container button:hover {
-  background-color: #e0e0e0;
-}
-
-.like-dislike-container span {
-  font-size: 0.9rem;
-  color: #333;
-  margin-left: 5px;
-  min-width: 50px; /* קביעת רוחב מינימלי לספירה */
-  text-align: center; /* מיקום הספירה במרכז */
+.review-popup button:hover {
+  background-color: #162a56;
 }
