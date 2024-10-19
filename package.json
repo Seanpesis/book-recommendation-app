@@ -2,6 +2,7 @@
   "name": "book-recommendation-backend",
   "version": "1.0.0",
   "main": "index.js",
+  "homepage": "https://booksrec.netlify.app/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -28,3 +29,4 @@
     "react-switch": "^7.0.0"
   }
 }
+
