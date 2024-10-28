@@ -4,7 +4,6 @@ const User = require('../models/User');
 const Book = require('../models/Book');
 const jwt = require('jsonwebtoken');
 
-// Add book to wishlist
 router.post('/add', async (req, res) => {
   const { token, bookId } = req.body;
   try {

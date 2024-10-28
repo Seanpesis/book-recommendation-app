@@ -1,16 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config(); // טוען את משתני הסביבה מהקובץ .env
+require('dotenv').config(); 
 
 const app = express();
 const port = process.env.PORT || 5000;
-
-// Middleware
 app.use(cors());
-app.use(express.json()); // מאפשר שליחת בקשות JSON
+app.use(express.json()); 
 
-// MongoDB Connection
 const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://seanpesis:Sp080301@book-recommendation.lnb0n.mongodb.net/book-recommendation?retryWrites=true&w=majority';
 
 mongoose.connect(mongoURI, {
@@ -20,7 +17,6 @@ mongoose.connect(mongoURI, {
   .then(() => console.log('MongoDB connected...'))
   .catch(err => console.error('Error connecting to MongoDB:', err));
 
-// מודל לספרים (Books)
 const bookSchema = new mongoose.Schema({
   googleBookId: { type: String, required: true, unique: true },
   title: { type: String },
@@ -33,13 +29,12 @@ const bookSchema = new mongoose.Schema({
 
 const Book = mongoose.model('Book', bookSchema);
 
-// Route to update likes
 app.post('/books/like/:googleBookId', async (req, res) => {
   try {
     const { googleBookId } = req.params;
     const book = await Book.findOneAndUpdate(
       { googleBookId },
-      { $inc: { likes: 1 } }, // העלאה של 1 ללייקים
+      { $inc: { likes: 1 } }, 
       { new: true, upsert: true }
     );
     res.json(book);
@@ -48,13 +43,12 @@ app.post('/books/like/:googleBookId', async (req, res) => {
   }
 });
 
-// Route to update dislikes
 app.post('/books/dislike/:googleBookId', async (req, res) => {
   try {
     const { googleBookId } = req.params;
     const book = await Book.findOneAndUpdate(
       { googleBookId },
-      { $inc: { dislikes: 1 } }, // העלאה של 1 לדיסלייקים
+      { $inc: { dislikes: 1 } }, 
       { new: true, upsert: true }
     );
     res.json(book);
@@ -63,7 +57,6 @@ app.post('/books/dislike/:googleBookId', async (req, res) => {
   }
 });
 
-// הפעלת השרת
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
